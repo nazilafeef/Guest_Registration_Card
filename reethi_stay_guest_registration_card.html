@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Reethi Stay Omadhoo – Guest Registration Card</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+
+<style>
+/* ─── RESET & ROOT ──────────────────────────────────────────────────── */
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --sand:#F5F0E8;--ink:#1C1C1A;--slate:#6B6860;--gold:#8B7355;
+  --gold-light:#C9A96E;--border:#DDD8CE;--section-bg:#F9F6F1;
+  --hotel-bg:#EEE9E0;--sig-line:#BDB8AE;
+}
+
+/* ─── SCREEN LAYOUT ─────────────────────────────────────────────────── */
+body{background:var(--sand);font-family:'Jost',sans-serif;color:var(--ink);min-height:100vh;padding:20px 0 60px;}
+
+/* top utility bar */
+.top-bar{max-width:780px;margin:0 auto 14px;display:flex;align-items:center;gap:10px;padding:0 4px;flex-wrap:wrap;}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border:0.5px solid var(--gold);background:transparent;font-family:'Jost',sans-serif;font-size:10px;letter-spacing:0.22em;color:var(--gold);text-transform:uppercase;cursor:pointer;transition:background .2s,color .2s;}
+.btn:hover{background:var(--gold);color:#fff;}
+.btn.whatsapp{border-color:#25D366;color:#25D366;}
+.btn.whatsapp:hover{background:#25D366;color:#fff;}
+.btn svg{width:14px;height:14px;fill:currentColor;flex-shrink:0;}
+.save-status{margin-left:auto;font-size:10px;letter-spacing:0.18em;color:var(--slate);opacity:0;transition:opacity .4s;}
+.save-status.show{opacity:1;}
+
+/* main card */
+.page{
+  max-width:780px;margin:0 auto;background:#FBF8F3;
+  border:0.5px solid var(--border);padding:44px 48px 36px;
+  box-decoration-break:clone;-webkit-box-decoration-break:clone;
+}
+
+/* ─── HEADER ────────────────────────────────────────────────────────── */
+.header{display:grid;grid-template-columns:1fr auto;align-items:start;margin-bottom:36px;padding-bottom:24px;border-bottom:0.5px solid var(--border);}
+.brand-name{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;letter-spacing:0.18em;color:var(--ink);text-transform:uppercase;}
+.brand-sub{font-family:'Jost',sans-serif;font-size:10px;font-weight:300;letter-spacing:0.22em;color:var(--gold);text-transform:uppercase;margin-top:4px;}
+.doc-title{font-family:'Jost',sans-serif;font-size:10px;font-weight:400;letter-spacing:0.3em;color:var(--slate);text-transform:uppercase;margin-top:10px;}
+.reg-box{border:0.5px solid var(--gold-light);padding:10px 14px;text-align:right;min-width:190px;}
+.reg-label{font-size:9px;letter-spacing:0.25em;color:var(--gold);text-transform:uppercase;font-weight:400;margin-bottom:6px;}
+.reg-input{width:100%;border:none;border-bottom:0.5px solid var(--gold-light);background:transparent;font-family:'Jost',sans-serif;font-size:13px;color:var(--ink);padding:2px 0;text-align:right;outline:none;}
+.reg-input:focus{border-bottom-color:var(--gold);}
+
+/* ─── FORM BLOCKS ───────────────────────────────────────────────────── */
+.block{margin-bottom:28px;}
+.block-title{font-size:9px;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;font-weight:500;padding-bottom:8px;border-bottom:0.5px solid var(--border);margin-bottom:18px;}
+.row{display:grid;gap:16px;margin-bottom:16px;}
+.r1{grid-template-columns:1fr;}
+.r2{grid-template-columns:1fr 1fr;}
+.r3{grid-template-columns:1fr 1fr 1fr;}
+.r13{grid-template-columns:2fr 1fr 1fr;}
+.field{display:flex;flex-direction:column;gap:5px;}
+.field label{font-size:9px;letter-spacing:0.18em;color:var(--slate);text-transform:uppercase;font-weight:400;}
+.field input,.field select,.field textarea{border:none;border-bottom:0.5px solid var(--sig-line);background:transparent;font-family:'Jost',sans-serif;font-size:13px;color:var(--ink);padding:4px 0;outline:none;transition:border-color .2s;width:100%;-webkit-appearance:none;}
+.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%238B7355'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 4px center;padding-right:18px;cursor:pointer;}
+.field input:focus,.field select:focus,.field textarea:focus{border-bottom-color:var(--gold);}
+
+/* hotel staff block */
+.hotel-block{background:var(--hotel-bg);border:0.5px solid var(--border);padding:20px 22px;margin-bottom:28px;}
+.hotel-title{font-size:9px;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;font-weight:500;padding-bottom:8px;border-bottom:0.5px solid var(--border);margin-bottom:18px;display:flex;align-items:center;gap:8px;}
+.hotel-title::after{content:'STAFF COMPLIANCE';font-size:8px;letter-spacing:0.2em;color:var(--slate);font-weight:300;opacity:.7;}
+
+/* terms */
+.terms-block{margin-bottom:28px;}
+.terms-title{font-size:9px;letter-spacing:0.3em;color:var(--gold);text-transform:uppercase;font-weight:500;padding-bottom:8px;border-bottom:0.5px solid var(--border);margin-bottom:14px;}
+.terms-list{list-style:none;padding:0;counter-reset:item;}
+.terms-list li{font-size:11px;color:var(--slate);line-height:1.7;padding:6px 0 6px 20px;position:relative;border-bottom:0.5px solid var(--border);}
+.terms-list li:last-child{border-bottom:none;}
+.terms-list li::before{content:counter(item);counter-increment:item;position:absolute;left:0;font-size:9px;color:var(--gold-light);font-weight:500;top:8px;}
+.opt-in{display:flex;align-items:center;gap:10px;margin-top:12px;padding-top:10px;border-top:0.5px solid var(--border);}
+.opt-in input[type=checkbox]{width:14px;height:14px;accent-color:var(--gold);cursor:pointer;}
+.opt-in label{font-size:11px;color:var(--slate);cursor:pointer;}
+
+/* signature */
+.sig-row{display:grid;grid-template-columns:2fr 1fr;gap:24px;margin-top:28px;padding-top:28px;border-top:0.5px solid var(--border);}
+.sig-area{display:flex;flex-direction:column;gap:8px;}
+.sig-label{font-size:9px;letter-spacing:0.18em;color:var(--slate);text-transform:uppercase;}
+.sig-canvas{border-bottom:0.5px solid var(--sig-line);height:60px;cursor:crosshair;}
+.sig-canvas canvas{width:100%;height:100%;display:block;}
+.sig-clear{font-size:9px;color:var(--gold);cursor:pointer;text-decoration:underline;margin-top:4px;background:none;border:none;font-family:'Jost',sans-serif;letter-spacing:0.1em;padding:0;text-align:right;}
+.date-area{display:flex;flex-direction:column;gap:5px;}
+
+/* footer */
+.footer{margin-top:28px;padding-top:16px;border-top:0.5px solid var(--border);text-align:center;font-size:10px;color:var(--slate);letter-spacing:.04em;line-height:1.8;font-weight:300;}
+.footer a{color:var(--gold);text-decoration:none;}
+.gold-divider{width:40px;height:0.5px;background:var(--gold-light);margin:0 auto 16px;}
+
+/* ─── A5 PRINT STYLES ───────────────────────────────────────────────── */
+@media print {
+  @page{
+    size:A5 portrait;
+    margin:10mm 12mm;
+  }
+
+  /* hide UI chrome */
+  .top-bar,.save-status{display:none!important;}
+
+  body{background:#fff;padding:0;margin:0;}
+
+  /* every printed page gets a full enclosing border */
+  .page{
+    max-width:100%;margin:0;padding:20px 22px 18px;
+    border:0.5px solid var(--border)!important;
+    /* clone ensures border is stamped on EVERY page fragment */
+    box-decoration-break:clone;
+    -webkit-box-decoration-break:clone;
+    font-size:11px;
+  }
+
+  /* scale down text that would be too large at A5 */
+  .brand-name{font-size:18px;}
+  .reg-box{min-width:140px;}
+  .row{gap:10px;margin-bottom:10px;}
+  .block{margin-bottom:18px;}
+  .hotel-block{padding:12px 14px;margin-bottom:18px;}
+  .sig-canvas{height:46px;}
+  .field input,.field select,.field textarea{font-size:11px;}
+
+  /* force page break before hotel block if needed */
+  .hotel-block{page-break-inside:avoid;break-inside:avoid;}
+  .sig-row{page-break-inside:avoid;break-inside:avoid;}
+  .terms-block{page-break-inside:avoid;break-inside:avoid;}
+}
+</style>
+</head>
+<body>
+
+<!-- ── UTILITY BAR (hidden on print) ──────────────────────────────── -->
+<div class="top-bar" id="topBar">
+  <button class="btn" onclick="printCard()">
+    <svg viewBox="0 0 24 24"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v8H6z"/></svg>
+    Print / Save PDF
+  </button>
+
+  <a id="waBtn" class="btn whatsapp" href="#" target="_blank" style="text-decoration:none;display:none;">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 2C6.476 2 2 6.476 2 12c0 1.79.468 3.47 1.287 4.931L2 22l5.233-1.267A9.945 9.945 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18c-1.7 0-3.29-.455-4.666-1.247l-.334-.198-3.108.752.779-3.023-.217-.35A7.942 7.942 0 014 12c0-4.418 3.582-8 8-8s8 3.582 8 8-3.582 8-8 8z"/></svg>
+    Send to Guest via WhatsApp
+  </a>
+
+  <span class="save-status" id="saveStatus">✓ Saved to Sheets</span>
+</div>
+
+<!-- ── REGISTRATION CARD ───────────────────────────────────────────── -->
+<div class="page" id="regCard">
+
+  <div class="header">
+    <div>
+      <div class="brand-name">Reethi Stay Omadhoo</div>
+      <div class="brand-sub">Omadhoo &middot; South Ari Atoll &middot; Maldives</div>
+      <div class="doc-title">Guest Registration Card</div>
+    </div>
+    <div class="reg-box">
+      <div class="reg-label">Registration No.</div>
+      <input class="reg-input" id="f_regNo" type="text" placeholder="_ _ _ _ _ _ _" />
+    </div>
+  </div>
+
+  <!-- GUEST PERSONAL DETAILS -->
+  <div class="block">
+    <div class="block-title">Guest Personal Details</div>
+    <div class="row r1">
+      <div class="field"><label>Full Guest Name (Capitals)</label>
+        <input id="f_name" type="text" placeholder="As per passport" style="text-transform:uppercase" /></div>
+    </div>
+    <div class="row r13">
+      <div class="field"><label>Permanent Address</label><input id="f_address" type="text" placeholder="Street / Building" /></div>
+      <div class="field"><label>City</label><input id="f_city" type="text" placeholder="City" /></div>
+      <div class="field"><label>Country of Residence</label><input id="f_country" type="text" placeholder="Country" /></div>
+    </div>
+    <div class="row r3">
+      <div class="field"><label>Nationality</label><input id="f_nationality" type="text" placeholder="Nationality" /></div>
+      <div class="field"><label>Date of Birth</label><input id="f_dob" type="date" /></div>
+      <div class="field"><label>Age</label><input id="f_age" type="number" placeholder="—" min="0" max="120" /></div>
+    </div>
+    <div class="row r3">
+      <div class="field"><label>Passport / ID Number</label><input id="f_passport" type="text" placeholder="Doc. Number" /></div>
+      <div class="field"><label>Date of Issue</label><input id="f_passIssue" type="date" /></div>
+      <div class="field"><label>Expiry Date</label><input id="f_passExpiry" type="date" /></div>
+    </div>
+    <div class="row r2">
+      <div class="field"><label>Contact Number</label>
+        <input id="f_phone" type="tel" placeholder="+_ _ _  _ _ _  _ _ _ _" /></div>
+      <div class="field"><label>Email Address</label><input id="f_email" type="email" placeholder="guest@email.com" /></div>
+    </div>
+    <div class="row r2">
+      <div class="field"><label>Emergency Contact Name</label><input id="f_emgName" type="text" placeholder="Full name" /></div>
+      <div class="field"><label>Emergency Contact Phone</label><input id="f_emgPhone" type="tel" placeholder="+_ _ _  _ _ _  _ _ _ _" /></div>
+    </div>
+  </div>
+
+  <!-- STAY & TRANSFER -->
+  <div class="block">
+    <div class="block-title">Stay &amp; Transfer Details</div>
+    <div class="row r3">
+      <div class="field"><label>Arrival Date</label><input id="f_arrDate" type="date" /></div>
+      <div class="field"><label>Flight No. (Arrival)</label><input id="f_arrFlight" type="text" placeholder="e.g. MH 701" /></div>
+      <div class="field"><label>Transfer Time</label><input id="f_arrTime" type="time" /></div>
+    </div>
+    <div class="row r3">
+      <div class="field"><label>Departure Date</label><input id="f_depDate" type="date" /></div>
+      <div class="field"><label>Flight No. (Departure)</label><input id="f_depFlight" type="text" placeholder="e.g. MH 702" /></div>
+      <div class="field"><label>Transfer Time</label><input id="f_depTime" type="time" /></div>
+    </div>
+    <div class="row r1">
+      <div class="field"><label>Dietary Restrictions / Allergies</label>
+        <select id="f_diet">
+          <option value="">None / Not specified</option>
+          <option>Vegetarian</option><option>Vegan</option><option>Halal</option>
+          <option>Gluten-Free</option><option>Nut Allergy</option>
+          <option>Shellfish Allergy</option><option>Lactose Intolerant</option>
+          <option>Other (please specify below)</option>
+        </select>
+      </div>
+    </div>
+    <div class="row r1">
+      <div class="field"><label>Special Requests / Additional Notes</label>
+        <input id="f_notes" type="text" placeholder="Room preferences, celebrations, accessibility needs…" />
+      </div>
+    </div>
+  </div>
+
+  <!-- HOTEL USE ONLY -->
+  <div class="hotel-block">
+    <div class="hotel-title">For Hotel Use Only &nbsp;</div>
+    <div class="row r3">
+      <div class="field"><label>Room Number</label><input id="f_room" type="text" placeholder="Room #" /></div>
+      <div class="field"><label>Room Type</label>
+        <select id="f_roomType">
+          <option value="">Select type</option>
+          <option>Standard Room</option><option>Deluxe Room</option>
+        </select>
+      </div>
+      <div class="field"><label>Room Rate (USD / MVR)</label><input id="f_rate" type="text" placeholder="e.g. USD 250 / MVR 3,862" /></div>
+    </div>
+    <div class="row r2">
+      <div class="field"><label>Booked By / Agency Reference</label><input id="f_agency" type="text" placeholder="Agent or booking ref." /></div>
+      <div class="field"><label>Mode of Payment</label>
+        <select id="f_payment">
+          <option value="">Select method</option>
+          <option>Cash (USD)</option><option>Cash (MVR)</option>
+          <option>Visa / Mastercard</option><option>Bank Transfer</option>
+          <option>OTA Settlement</option><option>Complimentary</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- TERMS -->
+  <div class="terms-block">
+    <div class="terms-title">Terms &amp; Conditions</div>
+    <ol class="terms-list">
+      <li>Check-in is from 14:00 hours. Check-out is by 12:00 noon. Early check-in and late check-out are subject to availability and applicable Guest House tariffs.</li>
+      <li>The guest acknowledges joint and several liability for all services rendered until full and final settlement of the account.</li>
+      <li>Guests will be held personally responsible for any loss or damage to hotel property caused by themselves, their companions, or any invitees.</li>
+      <li>The Management accepts no liability for personal belongings, currency, jewellery, or valuables left in rooms. Safety deposit options are available upon request.</li>
+      <li>Data Privacy: I agree to the processing of my personal data for registration and security purposes in accordance with local laws and applicable privacy standards.</li>
+    </ol>
+    <div class="opt-in">
+      <input type="checkbox" id="f_optin" />
+      <label for="f_optin">I would like to receive exclusive guest house updates and special offers from Reethi Stay Omadhoo.</label>
+    </div>
+  </div>
+
+  <!-- SIGNATURE -->
+  <div class="sig-row">
+    <div class="sig-area">
+      <div class="sig-label">Guest Signature</div>
+      <div class="sig-canvas"><canvas id="sigCanvas"></canvas></div>
+      <button class="sig-clear" onclick="clearSig()">Clear signature</button>
+    </div>
+    <div class="date-area">
+      <div class="field">
+        <label>Date of Signature</label>
+        <input type="date" id="sigDate" />
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="gold-divider"></div>
+    Reethi Stay &nbsp;&middot;&nbsp; Champaa Magu, Adh. Omadhoo, 00020, South Ari Atoll, Maldives<br>
+    Tel: <a href="tel:+9609713237">+960 971 3237</a> &nbsp;&middot;&nbsp;
+    <a href="mailto:reethistayomadhoo@gmail.com">reethistayomadhoo@gmail.com</a> &nbsp;&middot;&nbsp;
+    <a href="https://www.reethistayomadhoo.com">www.reethistayomadhoo.com</a>
+  </div>
+
+</div><!-- end .page -->
+
+<!-- ════════════════════════════════════════════════════════════════════
+     JAVASCRIPT
+     ════════════════════════════════════════════════════════════════════ -->
+<script>
+/* ── 1. CONFIGURATION ─────────────────────────────────────────────── */
+// Paste your deployed Google Apps Script Web App URL here:
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID_HERE/exec';
+
+/* ── 2. SIGNATURE CANVAS ──────────────────────────────────────────── */
+const canvas = document.getElementById('sigCanvas');
+const ctx    = canvas.getContext('2d');
+let drawing  = false, lastX = 0, lastY = 0;
+
+function resizeCanvas(){
+  const r   = canvas.parentElement.getBoundingClientRect();
+  const dpr = window.devicePixelRatio || 1;
+  // preserve existing drawing
+  const img = canvas.toDataURL();
+  canvas.width  = r.width  * dpr;
+  canvas.height = r.height * dpr;
+  canvas.style.width  = r.width  + 'px';
+  canvas.style.height = r.height + 'px';
+  ctx.scale(dpr, dpr);
+  ctx.strokeStyle = '#1C1C1A'; ctx.lineWidth = 1.2;
+  ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+  const i = new Image(); i.onload = () => ctx.drawImage(i, 0, 0, r.width, r.height);
+  i.src = img;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+function getPos(e){
+  const r = canvas.getBoundingClientRect();
+  const s = e.touches ? e.touches[0] : e;
+  return [s.clientX - r.left, s.clientY - r.top];
+}
+canvas.addEventListener('mousedown', e=>{ drawing=true; [lastX,lastY]=getPos(e); });
+canvas.addEventListener('mousemove', e=>{
+  if(!drawing) return;
+  const [x,y] = getPos(e);
+  ctx.beginPath(); ctx.moveTo(lastX,lastY); ctx.lineTo(x,y); ctx.stroke();
+  [lastX,lastY] = [x,y];
+});
+canvas.addEventListener('mouseup',    ()=>{ drawing=false; scheduleSync(); });
+canvas.addEventListener('mouseleave', ()=>  drawing=false);
+canvas.addEventListener('touchstart', e=>{ e.preventDefault(); drawing=true; [lastX,lastY]=getPos(e); },{ passive:false });
+canvas.addEventListener('touchmove',  e=>{
+  e.preventDefault();
+  if(!drawing) return;
+  const [x,y] = getPos(e);
+  ctx.beginPath(); ctx.moveTo(lastX,lastY); ctx.lineTo(x,y); ctx.stroke();
+  [lastX,lastY]=[x,y];
+},{ passive:false });
+canvas.addEventListener('touchend', ()=>{ drawing=false; scheduleSync(); });
+
+function clearSig(){
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  scheduleSync();
+}
+
+/* ── 3. DATA COLLECTION ───────────────────────────────────────────── */
+function collectData(){
+  return {
+    regNo:       document.getElementById('f_regNo').value,
+    name:        document.getElementById('f_name').value,
+    address:     document.getElementById('f_address').value,
+    city:        document.getElementById('f_city').value,
+    country:     document.getElementById('f_country').value,
+    nationality: document.getElementById('f_nationality').value,
+    dob:         document.getElementById('f_dob').value,
+    age:         document.getElementById('f_age').value,
+    passport:    document.getElementById('f_passport').value,
+    passIssue:   document.getElementById('f_passIssue').value,
+    passExpiry:  document.getElementById('f_passExpiry').value,
+    phone:       document.getElementById('f_phone').value,
+    email:       document.getElementById('f_email').value,
+    emgName:     document.getElementById('f_emgName').value,
+    emgPhone:    document.getElementById('f_emgPhone').value,
+    arrDate:     document.getElementById('f_arrDate').value,
+    arrFlight:   document.getElementById('f_arrFlight').value,
+    arrTime:     document.getElementById('f_arrTime').value,
+    depDate:     document.getElementById('f_depDate').value,
+    depFlight:   document.getElementById('f_depFlight').value,
+    depTime:     document.getElementById('f_depTime').value,
+    diet:        document.getElementById('f_diet').value,
+    notes:       document.getElementById('f_notes').value,
+    room:        document.getElementById('f_room').value,
+    roomType:    document.getElementById('f_roomType').value,
+    rate:        document.getElementById('f_rate').value,
+    agency:      document.getElementById('f_agency').value,
+    payment:     document.getElementById('f_payment').value,
+    optin:       document.getElementById('f_optin').checked ? 'Yes' : 'No',
+    sigDate:     document.getElementById('sigDate').value,
+    signature:   canvas.toDataURL()   // base64 PNG of signature
+  };
+}
+
+/* ── 4. GOOGLE SHEETS SYNC ────────────────────────────────────────── */
+let syncTimer = null;
+
+function scheduleSync(){
+  clearTimeout(syncTimer);
+  syncTimer = setTimeout(syncToSheets, 1200); // debounce 1.2s
+}
+
+async function syncToSheets(){
+  if(!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes('YOUR_DEPLOYMENT')){
+    // URL not yet configured — silently skip
+    return;
+  }
+  try {
+    const data = collectData();
+    await fetch(APPS_SCRIPT_URL, {
+      method:'POST',
+      mode:'no-cors',   // Apps Script requires no-cors
+      headers:{ 'Content-Type':'application/json' },
+      body: JSON.stringify(data)
+    });
+    showSavedBadge();
+  } catch(err){
+    console.warn('Sheets sync failed:', err);
+  }
+}
+
+function showSavedBadge(){
+  const el = document.getElementById('saveStatus');
+  el.classList.add('show');
+  setTimeout(()=> el.classList.remove('show'), 3000);
+}
+
+/* ── 5. AUTO-SAVE: attach listeners to all form fields ────────────── */
+document.addEventListener('DOMContentLoaded', ()=>{
+  const inputs = document.querySelectorAll(
+    'input:not([type=checkbox]):not(#sigDate), select, textarea'
+  );
+  inputs.forEach(el =>{
+    el.addEventListener('change', scheduleSync);
+    el.addEventListener('blur',   scheduleSync);
+  });
+  document.getElementById('f_optin').addEventListener('change', scheduleSync);
+  document.getElementById('sigDate').addEventListener('change', scheduleSync);
+
+  // set today's date
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('sigDate').value = today;
+
+  // WhatsApp button: update whenever phone changes
+  document.getElementById('f_phone').addEventListener('input', updateWhatsApp);
+  document.getElementById('f_phone').addEventListener('change', updateWhatsApp);
+});
+
+/* ── 6. WHATSAPP INTEGRATION ──────────────────────────────────────── */
+function updateWhatsApp(){
+  const raw = document.getElementById('f_phone').value.trim();
+  const waBtn = document.getElementById('waBtn');
+  if(!raw){ waBtn.style.display='none'; return; }
+
+  // Strip all non-digit characters except leading +
+  const number = raw.replace(/[^\d]/g,'');
+  if(number.length < 7){ waBtn.style.display='none'; return; }
+
+  const d = collectData();
+  const msg = encodeURIComponent(
+`*Reethi Stay Omadhoo — Guest Registration*
+
+Dear ${d.name || 'Guest'},
+
+Your registration has been recorded. Here are your details:
+
+*Check-in:* ${d.arrDate || '—'}  |  *Check-out:* ${d.depDate || '—'}
+*Room:* ${d.room || '—'} (${d.roomType || '—'})
+*Dietary:* ${d.diet || 'None'}
+*Special Requests:* ${d.notes || 'None'}
+
+If any details need updating, please contact us.
+
+Warm regards,
+*Reethi Stay Omadhoo*
++960 971 3237
+www.reethistayomadhoo.com`
+  );
+
+  waBtn.href = `https://wa.me/${number}?text=${msg}`;
+  waBtn.style.display = 'inline-flex';
+}
+
+/* ── 7. PRINT FUNCTION ────────────────────────────────────────────── */
+async function printCard(){
+  // Final sync before printing
+  clearTimeout(syncTimer);
+  await syncToSheets();
+  window.print();
+}
+</script>
+
+</body>
+</html>
